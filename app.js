@@ -11,12 +11,6 @@ const authRouter = require('./routes/api/auth');
 
 app.use(
   cors()
-  // {
-  // origin: ['http://localhost:3000', 'https://petly-front.onrender.com'],
-  // methods: 'GET,POST,PUT,DELETE,PATCH',
-  // allowedHeaders: ['Content-Type', 'Authorization'],
-  // credentials: true,
-  // }
 );
 app.use(logger(formatsLogger));
 app.use(express.json());
