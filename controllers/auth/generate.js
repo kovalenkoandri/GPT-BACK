@@ -40,7 +40,8 @@ const generate = async (req, res) => {
   }
   try {
     const completion = await openai.createCompletion({
-      model: 'text-ada-001',
+      model: 'text-babbage-001',
+      // model: 'text-ada-001',
       // model: 'text-davinci-003',
       // prompt: generatePrompt(animal),
       prompt: animal,
