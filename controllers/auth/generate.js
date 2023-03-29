@@ -2,6 +2,7 @@ const { Configuration, OpenAIApi } = require('openai');
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
+  // basePath: process.env.OPENAI_BASE_PATH,
 });
 const openai = new OpenAIApi(configuration);
 
@@ -17,6 +18,16 @@ const openai = new OpenAIApi(configuration);
 // Animal: ${capitalizedAnimal}
 // Names:`;
 // };
+
+// console.log(openai); //  basePath: 'https://api.openai.com/v1',
+// console.log(configuration);
+// const start = async (req, res) => {
+// const responseList = await openai.listModels();
+// console.log(responseList.data.data);
+// const responseModel = await openai.retrieveModel('gpt-4');
+// console.log(responseModel);
+// }
+// start();
 
 const generate = async (req, res) => {
   if (!configuration.apiKey) {
@@ -39,16 +50,28 @@ const generate = async (req, res) => {
     return;
   }
   try {
-    const completion = await openai.createCompletion({
-      model: 'text-babbage-001',
+    // const completion = await openai.createCompletion({ // model: 'text-davinci-003',
+    const completion = await openai.createChatCompletion({
+      model: 'gpt-3.5-turbo', // stable
+      // model: 'text-babbage-001',
       // model: 'text-ada-001',
       // model: 'text-davinci-003',
+      // models below do not exist on openai.listModels().data.data obejct yet 'https://api.openai.com/v1/models'
+      // model: 'gpt-4', // stable
+      // model: 'gpt-4-0314', // deprecated June 14th, 2023
+      // model: 'gpt-4-32k-0314', // deprecated June 14th, 2023
+
       // prompt: generatePrompt(animal),
-      prompt: animal,
+      // prompt: animal, // model: 'text-davinci-003',
       temperature: 0.6,
-      max_tokens: 256,
+      max_tokens: 25,
+      messages: [{ role: 'user', content: animal }],
     });
-    res.status(200).json({ result: completion.data.choices[0].text.trim() });
+    console.log(completion.data.choices[0].message.content);
+    // res.status(200).json({ result: completion.data.choices[0].text.trim() }); // model: 'text-davinci-003',
+    res
+      .status(200)
+      .json({ result: completion.data.choices[0].message.content.trim() });
   } catch (error) {
     // Consider adjusting the error handling logic for your use case
     if (error.response) {

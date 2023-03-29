@@ -106,3 +106,4 @@ package-lock.json
 
 .idea
 serverInterfaceExamle.js
+.vscode/launch.json
