@@ -46,7 +46,7 @@ const generate = async (req, res) => {
       // prompt: generatePrompt(animal),
       prompt: animal,
       temperature: 0.6,
-      max_tokens: 128,
+      max_tokens: 256,
     });
     res.status(200).json({ result: completion.data.choices[0].text.trim() });
   } catch (error) {
