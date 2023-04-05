@@ -48,7 +48,7 @@ const generate = async (req, res) => {
       // model: 'gpt-4-0314', // deprecated June 14th, 2023
       // model: 'gpt-4-32k-0314', // deprecated June 14th, 2023
       temperature: 0.6,
-      max_tokens: 25,
+      max_tokens: 256,
       messages: [{ role: 'user', content: requestData }],
     });
     console.log(completion.data.choices[0].message.content);
