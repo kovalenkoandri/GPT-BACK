@@ -40,15 +40,11 @@ const generate = async (req, res) => {
     // const completion = await openai.createCompletion({ // model: 'text-davinci-003',
     const completion = await openai.createChatCompletion({
       model: 'gpt-3.5-turbo', // stable
-      // model: 'text-babbage-001',
-      // model: 'text-ada-001',
       // model: 'text-davinci-003',
       // models below do not exist on openai.listModels().data.data obejct yet 'https://api.openai.com/v1/models'
       // model: 'gpt-4', // stable
-      // model: 'gpt-4-0314', // deprecated June 14th, 2023
-      // model: 'gpt-4-32k-0314', // deprecated June 14th, 2023
       temperature: 0.6,
-      max_tokens: 256,
+      max_tokens: 512,
       messages: [{ role: 'user', content: requestData }],
     });
     console.log(completion.data.choices[0].message.content);
@@ -57,7 +53,6 @@ const generate = async (req, res) => {
       .status(200)
       .json({ result: completion.data.choices[0].message.content.trim() });
   } catch (error) {
-    // Consider adjusting the error handling logic for your use case
     if (error.response) {
       console.error(error.response.status, error.response.data);
       res.status(error.response.status).json(error.response.data);

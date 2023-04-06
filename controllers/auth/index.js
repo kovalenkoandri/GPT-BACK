@@ -1,8 +1,8 @@
 const { ctrlWrapper } = require('../../helpers');
-// const logout = require('./logout');
+const image = require('./image');
 const generate = require('./generate');
 
 module.exports = {
-  // logout: ctrlWrapper(logout),
+  image: ctrlWrapper(image),
   generate: ctrlWrapper(generate),
 };

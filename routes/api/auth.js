@@ -3,7 +3,7 @@ const ctrl = require('../../controllers/auth');
 
 const router = express.Router();
 
-// router.get('/logout', ctrl.logout);
+router.post('/image', ctrl.image);
 router.post('/generate', ctrl.generate);
 
 module.exports = router;
