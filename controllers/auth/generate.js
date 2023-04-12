@@ -44,7 +44,7 @@ const generate = async (req, res) => {
       // models below do not exist on openai.listModels().data.data obejct yet 'https://api.openai.com/v1/models'
       // model: 'gpt-4', // stable
       temperature: 0.6,
-      max_tokens: 512,
+      max_tokens: 0,
       messages: [{ role: 'user', content: requestData }],
     });
     console.log(completion.data.choices[0].message.content);
