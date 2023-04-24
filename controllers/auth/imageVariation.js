@@ -28,7 +28,6 @@ const imageVariation = async (req, res) => {
   }
   try {
     const result = await openai.createImageVariation(
-      //   fs.createReadStream('img/image_variation_original.png'),
       fs.createReadStream('img/variation.png'),
       1,
       '256x256'
