@@ -1,4 +1,3 @@
-const fs = require('fs');
 const { Configuration, OpenAIApi } = require('openai');
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -21,14 +20,14 @@ const imageVariation = async (req, res) => {
   try {
     const imgResult = await fetch(req.body.link);
     const blob = await imgResult.blob();
-    buffer = Buffer.from(await blob.arrayBuffer());
-    fs.writeFileSync(`img/variation.png`, buffer);
+      buffer = Buffer.from(await blob.arrayBuffer());
+      buffer.name = 'variation.png';
   } catch (error) {
     console.log(error);
   }
   try {
     const result = await openai.createImageVariation(
-      fs.createReadStream('img/variation.png'),
+      buffer,
       1,
       '256x256'
     );
