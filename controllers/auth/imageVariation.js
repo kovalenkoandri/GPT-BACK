@@ -19,19 +19,17 @@ const imageVariation = async (req, res) => {
   }
 
   try {
-    const imgResult = await fetch(
-      'https://res.cloudinary.com/dpad5ltdp/image/upload/v1682337209/image_variation_original_fjzhea.png'
-    );
+    const imgResult = await fetch(req.body.link);
     const blob = await imgResult.blob();
     buffer = Buffer.from(await blob.arrayBuffer());
-    fs.writeFileSync(`img/1.png`, buffer);
+    fs.writeFileSync(`img/variation.png`, buffer);
   } catch (error) {
     console.log(error);
   }
   try {
     const result = await openai.createImageVariation(
       //   fs.createReadStream('img/image_variation_original.png'),
-      fs.createReadStream('img/1.png'),
+      fs.createReadStream('img/variation.png'),
       1,
       '256x256'
     );
