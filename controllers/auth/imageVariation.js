@@ -1,4 +1,4 @@
-const { createReadStream, writeFileSync } = require('fs/promises');
+const fs = require('fs');
 const { Configuration, OpenAIApi } = require('openai');
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -7,6 +7,7 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 const imageVariation = async (req, res) => {
+  let buffer;
   if (!configuration.apiKey) {
     res.status(500).json({
       error: {
@@ -18,10 +19,19 @@ const imageVariation = async (req, res) => {
   }
 
   try {
+    const imgResult = await fetch(
+      'https://res.cloudinary.com/dpad5ltdp/image/upload/v1682337209/image_variation_original_fjzhea.png'
+    );
+    const blob = await imgResult.blob();
+    buffer = Buffer.from(await blob.arrayBuffer());
+    fs.writeFileSync(`img/1.png`, buffer);
+  } catch (error) {
+    console.log(error);
+  }
+  try {
     const result = await openai.createImageVariation(
-      createReadStream(
-        `https://cdn.openai.com/API/images/guides/image_variation_original.webp`
-      ),
+      //   fs.createReadStream('img/image_variation_original.png'),
+      fs.createReadStream('img/1.png'),
       1,
       '256x256'
     );
@@ -33,7 +43,7 @@ const imageVariation = async (req, res) => {
     // const imgResult = await fetch(url);
     // const blob = await imgResult.blob();
     // const buffer = Buffer.from(await blob.arrayBuffer());
-    // writeFileSync(`../../img/${Date.now()}.png`, buffer);
+    // fs.writeFileSync(`img/${Date.now()}.png`, buffer);
   } catch (error) {
     if (error.response) {
       console.error(error.response.status, error.response.data);
