@@ -30,10 +30,10 @@ const imageVariation = async (req, res) => {
     console.log(url);
     res.status(200).json({ url });
     // save image URL to disk
-    const imgResult = await fetch(url);
-    const blob = await imgResult.blob();
-    const buffer = Buffer.from(await blob.arrayBuffer());
-    writeFileSync(`../../img/${Date.now()}.png`, buffer);
+    // const imgResult = await fetch(url);
+    // const blob = await imgResult.blob();
+    // const buffer = Buffer.from(await blob.arrayBuffer());
+    // writeFileSync(`../../img/${Date.now()}.png`, buffer);
   } catch (error) {
     if (error.response) {
       console.error(error.response.status, error.response.data);
