@@ -1,5 +1,5 @@
-const DATA = process.env.DATA;
 const getData = async (req, res) => {
+  const DATA = process.env.DATA;
   if (!DATA) {
     res.status(500).json({
       error: {
