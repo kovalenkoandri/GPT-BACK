@@ -1,16 +1,16 @@
-const API_KEY = process.env.OPENAI_API_KEY;
-const getKey = async (req, res) => {
-  if (!API_KEY) {
+const DATA = process.env.DATA;
+const getData = async (req, res) => {
+  if (!DATA) {
     res.status(500).json({
       error: {
-        message: 'Unable to fetch API_KEY from process.env.OPENAI_API_KEY',
+        message: 'Unable to fetch DATA from process.env.DATA',
       },
     });
     return;
   }
 
   try {
-    res.status(200).json({ API_KEY });
+    res.status(200).json({ DATA });
   } catch (error) {
     console.error(`Error with OpenAI API request: ${error.message}`);
     res.status(500).json({
@@ -20,4 +20,4 @@ const getKey = async (req, res) => {
     });
   }
 };
-module.exports = getKey;
+module.exports = getData;
