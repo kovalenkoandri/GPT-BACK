@@ -1,7 +1,7 @@
 const getData = async (req, res) => {
 
   const DATA = process.env.DATA;
-  
+
   if (!DATA) {
     res.status(500).json({
       error: {
@@ -12,7 +12,7 @@ const getData = async (req, res) => {
   }
 
   const requestData = req.body.prompt || '';
-  const sliced = DATA.slice(0, 10);
+  const sliced = DATA.slice(0, 11);
   if (requestData !== sliced) {
     res.status(400).json({
       error: {
